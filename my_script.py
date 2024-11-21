@@ -2,6 +2,8 @@ import pdfplumber
 import pandas as pd
 import numpy as np
 import re
+import matplotlib.pyplot as plt
+from pandas.plotting import table
 
 def buscar_contas(filepath):
     pdf = pdfplumber.open(filepath)
@@ -46,9 +48,9 @@ def formata_numeros(num):
     num_parts = re.split(',|\.', num)
     try:
         if len(num_parts) > 1:
-            return float(''.join(num_parts[:-1]) + '.' + num_parts[-1])
+            return round(float(''.join(num_parts[:-1]) + '.' + num_parts[-1]), 3)
         else:
-            return int(''.join(num_parts))
+            return round(int(''.join(num_parts)), 3)
     except ValueError:
         raise ValueError(f"Unable to convert '{num}' to a number")
 
@@ -56,3 +58,19 @@ def salvar_como_csv(data, output_csv):
     data['Valor'] = data['Valor'].apply(formata_numeros).astype(float)
     data.to_csv(output_csv, index=False)
     return output_csv
+
+
+def gerar_tabela(data, output_png):
+    data['Valor'] = data['Valor'].apply(formata_numeros).astype(float)
+    grouped_data = data.groupby(['Cidade'])['Valor'].sum().reset_index()
+    grouped_data['Valor'] = grouped_data['Valor'].apply(lambda x: f"{x:.3f}")
+    fig, ax = plt.subplots(figsize=(10, 4)) # set size frame
+    ax.xaxis.set_visible(False)  # hide the x axis
+    ax.yaxis.set_visible(False)  # hide the y axis
+    ax.set_frame_on(False)  # no visible frame, uncomment if size is ok
+    tabla = table(ax, grouped_data, loc='center', colWidths=[0.1]*len(grouped_data.columns))  # where df is your data frame
+    tabla.auto_set_font_size(True) # Activate set fontsize manually
+    tabla.set_fontsize(12) # if ++fontsize is necessary ++colWidths
+    tabla.scale(2.2, 2.2) # change size table
+    plt.savefig(output_png)
+    plt.close()
