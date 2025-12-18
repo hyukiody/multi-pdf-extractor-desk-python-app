@@ -71,8 +71,8 @@ chmod +x "filename"
 ### Application Workflow
 
 1. **Launch the application**: Run the Python script or executable
-2. **Select PDF files**: Click "Selecionar Arquivos PDF" to choose one or more PDF files
-3. **Confirm processing**: Click "Confirmar Processamento" to start extraction
+2. **Select PDF files**: Click "Select PDF Files" to choose one or more PDF files
+3. **Confirm processing**: Click "Confirm Processing" to start extraction
 4. **Review results**: The application creates a folder for each PDF with:
    - `output.csv`: Extracted data in CSV format
    - `tabela.png`: Visual summary table grouped by city
