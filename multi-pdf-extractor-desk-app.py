@@ -51,9 +51,9 @@ def processar_arquivos(filepaths):
             salvar_como_csv(data, os.path.join(output_folder, "output.csv"))
             gerar_tabela(data, os.path.join(output_folder, "tabela.png"))
 
-            messagebox.showinfo("Sucesso", f"Arquivo processado:\n{output_folder}")
+            messagebox.showinfo("Success", f"File processed:\n{output_folder}")
         except Exception as e:
-            messagebox.showerror("Erro", f"Ocorreu um erro com {os.path.basename(filepath)}:\n{e}")
+            messagebox.showerror("Error", f"An error occurred with {os.path.basename(filepath)}:\n{e}")
 
 def gerar_nome_csv(filepath):
     """
@@ -79,19 +79,19 @@ root = tk.Tk()
 root.title("Multi-PDF Bill Processor")
 
 # Interface elements
-instruction_label = Label(root, text="Selecione um ou mais arquivos PDF para processar:")
+instruction_label = Label(root, text="Select one or more PDF files to process:")
 instruction_label.pack(pady=10)
 
-select_btn = Button(root, text="Selecionar Arquivos PDF", command=selecionar_arquivos)
+select_btn = Button(root, text="Select PDF Files", command=selecionar_arquivos)
 select_btn.pack(pady=10)
 
 selected_files_label = Label(root, text="", wraplength=400)
 selected_files_label.pack(pady=10)
 
-confirm_btn = Button(root, text="Confirmar Processamento", command=confirmar_processamento, state=tk.DISABLED)
+confirm_btn = Button(root, text="Confirm Processing", command=confirmar_processamento, state=tk.DISABLED)
 confirm_btn.pack(pady=10)
 
-exit_btn = Button(root, text="Sair", command=root.quit)
+exit_btn = Button(root, text="Exit", command=root.quit)
 exit_btn.pack(pady=10)
 
 # Run the interface
